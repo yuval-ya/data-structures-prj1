@@ -6,4 +6,4 @@
 //  Copyright © 2020 Tamir Houri 205668627 & Yuval Yakovskind 316550524. All rights reserved.
 //
 
-#include "check.hpp"
+#include "check.h"
