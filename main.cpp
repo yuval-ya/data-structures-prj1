@@ -22,11 +22,10 @@ int main() {
     y = getNumArr(n);
     
     cout << "------------" << endl;
-    cout << "Num1 = (" << x[0] << x[1] << ")" << endl;
-    cout << "Num2 = (" << y[0] << y[1] << ")" << endl;
+    cout << "Number 1 = (" << x[0] << x[1] << ")" << endl;
+    cout << "Number 2 = (" << y[0] << y[1] << ")" << endl;
     cout << "------------" << endl;
-
-    cout << "res = ";
+    cout << "Result = ";
 
     multipliesA(x, y, n, n);
 
@@ -40,7 +39,8 @@ int* getNumArr(int size) {
     char ch;
 
     cout << "Enter the input number: " <<endl;
-    for(int i = 0; i < size; i++){
+    for(int i = 0; i < size; i++)
+    {
         cin >> ch;
         numArr[i] = ch - '0';
     }
@@ -48,12 +48,9 @@ int* getNumArr(int size) {
     return numArr;
 }
 
-void multipliesA(int* num1, int* num2, int size1, int size2){
+void multiplyA(int* num1, int* num2, int size1, int size2){
+    
     int idx_num1, idx_num2, carry, sum;
-    
-    if (size1 + size2 == 0)
-        cout << "0" << endl;
-    
     int* res = new int[size1 + size2];
 
     for(int i = size1 + size2 - 1; i >= 0; i--)
@@ -61,12 +58,13 @@ void multipliesA(int* num1, int* num2, int size1, int size2){
     
     idx_num1 = idx_num2 = 0;
     
-    for (int i = size1 - 1; i >= 0; i--){
-        
+    for (int i = size1 - 1; i >= 0; i--)
+    {
         carry = 0;
         idx_num2 = 0;
         
-        for (int j = size2 - 1; j >= 0; j--){
+        for (int j = size2 - 1; j >= 0; j--)
+        {
             sum = 0;
             sum = num1[i] * num2[j] + carry + res[idx_num1 + idx_num2];
             carry = sum / 10;

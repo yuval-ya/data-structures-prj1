@@ -11,5 +11,5 @@
 using namespace stk;
 
 int* getNumArr(int size);
-void multipliesA(int* num1, int* num2, int size1, int size2);
+void multiplyA(int* num1, int* num2, int size1, int size2);
 
