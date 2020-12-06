@@ -22,16 +22,24 @@ int main() {
     y = getNumArr(n);
     
     cout << "------------" << endl;
-    cout << "Number 1 = (" << x[0] << x[1] << ")" << endl;
-    cout << "Number 2 = (" << y[0] << y[1] << ")" << endl;
-    cout << "------------" << endl;
+    cout << "Number 1 = ";
+	printIntArr(x, n);
+    cout << "\nNumber 2 = ";
+	printIntArr(y, n);
+    cout << "\n------------" << endl;
     cout << "Result = ";
 
-    multipliesA(x, y, n, n);
+	multiplyA(x, y, n, n);
 
     return 0;
 }
-
+void printIntArr(int * arr, int size) {
+	int j;
+	for (j = 0; (j < size - 1) && (arr[j] == 0); j++) { // skip all leading zero's
+	}
+	for (int i = j; i < size; i++)
+		cout << arr[i];
+}
 
 int* getNumArr(int size) {
 
@@ -78,6 +86,4 @@ void multiplyA(int* num1, int* num2, int size1, int size2){
     
     for(int i = size1 + size2 - 1; i >= 0; i--)
         cout << res[i];
-    
-    
 }
