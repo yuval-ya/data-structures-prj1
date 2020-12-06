@@ -10,26 +10,29 @@
 #include <iostream>
 using namespace std;
 
+#include "Multiplication.h";
 
 int main() {
 
     int n;
     cout << "Enter the number of digits: " <<endl;
     cin >> n;
+	Multiplication m(n, n);
+	m.RegularMultiplication();
 
-    int *x, *y;
-    x = getNumArr(n);
-    y = getNumArr(n);
-    
-    cout << "------------" << endl;
-    cout << "Number 1 = ";
-	printIntArr(x, n);
-    cout << "\nNumber 2 = ";
-	printIntArr(y, n);
-    cout << "\n------------" << endl;
-    cout << "Result = ";
+ //   int *x, *y;
+ //   x = getNumArr(n);
+ //   y = getNumArr(n);
+ //   
+ //   cout << "------------" << endl;
+ //   cout << "Number 1 = ";
+	//printIntArr(x, n);
+ //   cout << "\nNumber 2 = ";
+	//printIntArr(y, n);
+ //   cout << "\n------------" << endl;
+ //   cout << "Result = ";
 
-	multiplyA(x, y, n, n);
+	//multiplyA(x, y, n, n);
 
     return 0;
 }
@@ -86,4 +89,6 @@ void multiplyA(int* num1, int* num2, int size1, int size2){
     
     for(int i = size1 + size2 - 1; i >= 0; i--)
         cout << res[i];
+
+	delete[] res;
 }
