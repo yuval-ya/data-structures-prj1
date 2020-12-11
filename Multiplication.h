@@ -1,21 +1,12 @@
 #pragma once
 class Multiplication
 {
-private:
-	int* x;
-	int* y;
-	int x_size, y_size;
-
-	static void printNumber(int* arr, int size);
-	static void InitNumArr(int* arr, int size);
-
 public:
-	Multiplication(int n1, int n2);
-	~Multiplication();
-
-	void RegularMultiplication();
-	void KaratsubaRecursive();
-	void KaratsubaIterative();
-
+	static int* RegularMultiplication(int* x, int* y, int x_size, int y_size);
+	static int* KaratsubaRecursive(int* x, int* y, long int size, int* res);
+	static int* KaratsubaIterative();
+	
+	static int* adder(int* x, int* y, long int x_size, long int y_size, long int& resSize);
+	static int* subtractor(int* x, int* y, long int x_size, long int y_size, long int& resSize);
 };
 

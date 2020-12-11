@@ -7,32 +7,32 @@
 //
 
 #include "main.h"
-#include <iostream>
+#include "Multiplication.h"
 
+#include <iostream>
 #include <chrono>
 #include <fstream>
 using namespace std;
 
 int main() {
-	int input_flag = 1;
-	long int n = 0;
-	
-	input_flag = getSize(n);
-	
+	int input_flag = 1;	
+
+	long int n = getSize(input_flag);	
 	if (input_flag < 0) {
-		cout << "wrong output";
+		cout << "wrong output";  //wrong input?
 		return 0;
 	}
 
     int *x, *y;
 	x = getNumArr(n, input_flag);
 	if (input_flag < 0) {
-		cout << "wrong output";
+		cout << "wrong output"; //wrong input?
 		return 0;
 	}
+
 	y = getNumArr(n, input_flag);
 	if (input_flag < 0) {
-		cout << "wrong output";
+		cout << "wrong output"; //wrong input?
 		return 0;
 	}
     
@@ -44,12 +44,19 @@ int main() {
     cout << "\n------------" << endl;
     cout << "Result = ";
 
+	int* res1 = Multiplication::RegularMultiplication(x, y, n, n);
+	int* res2 = Multiplication::KaratsubaRecursive(x, y, n, n);
+	//int* res3 = Multiplication::RegularMultiplication(x, y, n, n);
 	
 	cout << "Long multiplication : x * y =";
-	multiplyA(x, y, n, n);
+	printIntArr(res1, 2 * n);
 	cout << "\nKaratsuba(recursive) : x * y =";
-	cout << "\nKaratsuba(iterative) : x * y =";
+	printIntArr(res2, 2 * n);
+	//cout << "\nKaratsuba(iterative) : x * y =";
+	//printIntArr(res3, 2 * n);
 
+	delete[] res1;
+	delete[] res2;
     return 0;
 }
 
@@ -61,37 +68,77 @@ void printIntArr(int * arr, int size) {
 		cout << arr[i];
 }
 
-int getSize(long int& n) {
+long int getSize(int& input_flag) {
 	long int res = 0;
 	cout << "Enter the number of digits: " << endl;	
 	char ch;
 	cin >> ch;
 	if (ch < '1' || ch > '9')
-		return -1;			// case ch is not a number or a leading zero
-	while (/*ch != ' ' && ch != '\t' && */ch != '\n')
+	{	// case ch is not a number or a leading zero
+		input_flag = -1;
+		return 0;
+	}
+
+	while (ch != '\n')
 	{
 		if (ch < '0' || ch > '9') 
-			return -2;		// case ch is not a number
+		{	// case ch is not a number
+			input_flag = -2;
+			return 0;
+		}	
 		res *= 10;
 		res += ch - '0';
 		cin.get(ch);
 	}
-	n = res;
-	return 1;
+	return res;
 }
 
-int* getNumArr(int size, int& input_flag) {
+int* getNumArr(long int size, int& input_flag) {
 
     int *res = new int[size];
     char ch;
-
+	int i = 0;
     cout << "Enter the input number: " <<endl;
-    for(int i = 0; i < size; i++)
-    {
-        cin >> ch;
-        res[i] = ch - '0';
-    }
-	input_flag = 1;
+	
+	cin.get(ch);
+	if (ch < '0' || ch > '9')
+	{	// case ch is not a number
+		input_flag = -1;
+		delete[] res;
+		return nullptr;
+	}
+
+	while (ch != ' ' && ch != '\t' && ch != '\n' && input_flag > 0)
+	{
+		if (ch < '0' || ch > '9' || i >= size)
+		{	// case ch is not a number or the user enter more digit then size
+			input_flag = -2;
+			delete[] res;
+			return nullptr;
+		}
+		res[i] = ch - '0';
+		cin.get(ch);
+		i++;
+	}
+
+	if (i < size) 
+	{ // case the input is smaller than the size received
+		input_flag = -2;
+		delete[] res;
+		return nullptr;
+	}
+
+	//if (i < size) 
+	//{	// fill with zeros from the left of the number if the digits are smaller than the size received
+	//	int diff = size - i;
+	//	for (int j = size - 1; j >= 0 ; j--)
+	//	{
+	//		if (j - diff >= 0)
+	//			res[j] = res[j - diff];
+	//		else
+	//			res[j] = 0;
+	//	}
+	//}
 	return res;
 }
 
