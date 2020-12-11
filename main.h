@@ -7,10 +7,11 @@
 //
 
 #pragma once
-#include "Stack.h"
-using namespace stk;
+//#include "Stack.h"
+//using namespace stk;
 
-int* getNumArr(int size);
+int getSize(long int& n);
+int* getNumArr(int size, int& input_flag);
 void multiplyA(int* num1, int* num2, int size1, int size2);
 void printIntArr(int * arr, int size);
 

@@ -2,12 +2,12 @@
 class Multiplication
 {
 private:
-	unsigned char* x;
-	unsigned char* y;
+	int* x;
+	int* y;
 	int x_size, y_size;
 
-	static void printNumber(unsigned char* arr, int size);
-	static void InitNumArr(unsigned char* arr, int size);
+	static void printNumber(int* arr, int size);
+	static void InitNumArr(int* arr, int size);
 
 public:
 	Multiplication(int n1, int n2);

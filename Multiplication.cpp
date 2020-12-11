@@ -4,20 +4,20 @@
 using namespace std;
 
 Multiplication::Multiplication(int n1, int n2) : x_size(n1), y_size(n2),
-	x(new unsigned char[n1]) ,y(new unsigned char[n2]) 
+	x(new int[n1]) ,y(new int[n2]) 
 {
 	InitNumArr(x, x_size);
 	InitNumArr(y, y_size);
 
-	//printNumber(x, x_size);
-	//printNumber(y, y_size);
+	printNumber(x, x_size);
+	printNumber(y, y_size);
 }
 Multiplication::~Multiplication() {
 	delete[] x;
 	delete[] y;
 }
 
-void Multiplication::InitNumArr(unsigned char* arr, int size) {
+void Multiplication::InitNumArr(int* arr, int size) {
 	char ch;
 	cout << "Enter the input number: " << endl;
 	for (int i = 0; i < size; i++)
@@ -27,18 +27,18 @@ void Multiplication::InitNumArr(unsigned char* arr, int size) {
 	}
 }
 
-void Multiplication::printNumber(unsigned char* arr, int size) {
+void Multiplication::printNumber(int* arr, int size) {
 	int j;
 	for (j = 0; (j < size - 1) && (arr[j] == 0); j++) { // skip all leading zero's
 	}
 	for (int i = j; i < size; i++)
-		cout << static_cast<unsigned char>('0' + arr[i]);
+		cout << arr[i];
 	cout << endl;
 }
 
 void Multiplication::RegularMultiplication() {
 	int idx_x, idx_y, carry, sum;
-	unsigned char* res = new unsigned char[x_size + y_size];
+	int* res = new int[x_size + y_size];
 
 	for (int i = 0; i < x_size + y_size; i++)
 		res[i] = 0;
@@ -64,7 +64,7 @@ void Multiplication::RegularMultiplication() {
 	}
 
 	for (int i = x_size + y_size - 1; i >= 0; i--)
-		cout << static_cast<unsigned char>(res[i] + '0');
+		cout << res[i];
 
 	delete[] res;
 }
