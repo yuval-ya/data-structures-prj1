@@ -2,8 +2,8 @@
 class Multiplication
 {
 public:
-	static int* RegularMultiplication(int* x, int* y, int x_size, int y_size);
-	static void KaratsubaRecursive(int* x, int* y, long int size, int* res);
+	static int* RegularMultiplication(int* x, int* y, long int x_size, long int y_size);
+	static int* KaratsubaRecursive(int* x, int* y, long int size);
 	static void KaratsubaRecursive_tmp(int* x, int* y, long int size, int* res);
 	static void KaratsubaIterative();
 	

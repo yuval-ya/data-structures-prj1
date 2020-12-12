@@ -5,22 +5,19 @@ using namespace std;
 
 
 
-int* Multiplication::RegularMultiplication(int* x, int* y, int x_size, int y_size) {
+int* Multiplication::RegularMultiplication(int* x, int* y, long int x_size, long int y_size) {
 	int idx_x, idx_y, carry, sum;
-	int resSize = x_size + y_size;
-	int* res = new int[resSize];
-
-	for (int i = 0; i < resSize; i++)
-		res[i] = 0;
+	long int resSize = x_size + y_size;
+	int* res = new int[resSize]();
 
 	idx_x = idx_y = 0;
 
-	for (int i = x_size - 1; i >= 0; i--)
+	for (long int i = x_size - 1; i >= 0; i--)
 	{
 		carry = 0;
 		idx_y = 0;
 
-		for (int j = y_size - 1; j >= 0; j--)
+		for (long int j = y_size - 1; j >= 0; j--)
 		{
 			sum = 0;
 			sum = x[i] * y[j] + carry + res[idx_x + idx_y];
@@ -162,7 +159,15 @@ int* Multiplication::adder(int* x, int* y, long int x_size, long int y_size, lon
 	if (write >= 0)
 		res[write] = carry;
 	
-	//if (carry)	//{	//	int* resWithCarry = new int[resSize + 1]();	//	memcpy(resWithCarry + 1, res, resSize * sizeof(int));	//	resWithCarry[0] = carry;	//	resSize++;	//	delete[] res;	//	return resWithCarry;	//}
+	//if (carry)
+	//{
+	//	int* resWithCarry = new int[resSize + 1]();
+	//	memcpy(resWithCarry + 1, res, resSize * sizeof(int));
+	//	resWithCarry[0] = carry;
+	//	resSize++;
+	//	delete[] res;
+	//	return resWithCarry;
+	//}
 	return res;
 }
 

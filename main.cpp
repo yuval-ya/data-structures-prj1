@@ -56,8 +56,7 @@ int main() {
 	delete[] res1;
 
 	//** func2 check **
-	int* res2 = new int[n * 2]();;
-	Multiplication::KaratsubaRecursive(x, y, n, res2);
+	int* res2 = Multiplication::KaratsubaRecursive(x, y, n);
 	cout << "\nKaratsuba(recursive) : x * y =";
 	printIntArr(res2, 2 * n);
 	delete[] res2;
