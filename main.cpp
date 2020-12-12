@@ -45,7 +45,8 @@ int main() {
     cout << "Result = ";
 
 	int* res1 = Multiplication::RegularMultiplication(x, y, n, n);
-	int* res2 = Multiplication::KaratsubaRecursive(x, y, n, n);
+	int* res2 = new int[2 * n]();
+	Multiplication::KaratsubaRecursive(x, y, n, res2);
 	//int* res3 = Multiplication::RegularMultiplication(x, y, n, n);
 	
 	cout << "Long multiplication : x * y =";
@@ -61,9 +62,9 @@ int main() {
 }
 
 void printIntArr(int * arr, int size) {
-	int j;
-	for (j = 0; (j < size - 1) && (arr[j] == 0); j++) { // skip all leading zero's
-	}
+	int j = 0;
+	//for (j = 0; (j < size - 1) && (arr[j] == 0); j++) { // skip all leading zero's
+	//}
 	for (int i = j; i < size; i++)
 		cout << arr[i];
 }
