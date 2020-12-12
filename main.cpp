@@ -44,20 +44,30 @@ int main() {
     cout << "\n------------" << endl;
     cout << "Result = ";
 
+	//** adder check **
+	//long int size = 0;
+	//int* res = Multiplication::adder(x, y, n, n, size);
+	//printIntArr(res, size);
+	//delete[] res;
+	//** func1 check **
 	int* res1 = Multiplication::RegularMultiplication(x, y, n, n);
-	int* res2 = new int[2 * n]();
-	Multiplication::KaratsubaRecursive(x, y, n, res2);
-	//int* res3 = Multiplication::RegularMultiplication(x, y, n, n);
-	
 	cout << "Long multiplication : x * y =";
 	printIntArr(res1, 2 * n);
+	delete[] res1;
+
+	//** func2 check **
+	int* res2 = new int[n * 2]();;
+	Multiplication::KaratsubaRecursive(x, y, n, res2);
 	cout << "\nKaratsuba(recursive) : x * y =";
 	printIntArr(res2, 2 * n);
+	delete[] res2;
+	
+	//int* res3 = Multiplication::RegularMultiplication(x, y, n, n);
 	//cout << "\nKaratsuba(iterative) : x * y =";
 	//printIntArr(res3, 2 * n);
-
-	delete[] res1;
-	delete[] res2;
+	//printIntArr(res3, 2 * n);
+	//delete[] res3;
+	
     return 0;
 }
 
