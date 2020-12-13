@@ -51,30 +51,51 @@ int main() {
 	//delete[] res;
 	//** func1 check **
 	int* res1 = Multiplication::RegularMultiplication(x, y, n, n);
-	cout << "Long multiplication : x * y =";
+	cout << "Long multiplication : x * y = ";
 	printIntArr(res1, 2 * n);
-	delete[] res1;
+
 
 	//** func2 check **
-	int* res2 = new int[n * 2]();;
-	Multiplication::KaratsubaRecursive(x, y, n, res2);
-	cout << "\nKaratsuba(recursive) : x * y =";
+	int* res2 = new int[n * 2]();
+	Multiplication::KaratsubaRecursive_tmp(x, y, n, res2);
+	cout << "\nKaratsuba(recursive) : x * y = ";
 	printIntArr(res2, 2 * n);
-	delete[] res2;
+
 	
 	//int* res3 = Multiplication::RegularMultiplication(x, y, n, n);
-	//cout << "\nKaratsuba(iterative) : x * y =";
-	//printIntArr(res3, 2 * n);
-	//printIntArr(res3, 2 * n);
+	//cout << "\nKaratsuba(iterative) : x * y = ";
+	//printIntArr(res2, 2 * n);
 	//delete[] res3;
 	
+	// 30 = 876234020838765345918273004980
+	// 30 = 123987654230004995884323123721
+	// 60 = 123987654230083876534591827300498004995884323123721876234020
+	// 60 = 356767567867986773456234513465475684678467724562624563747000
+
+
+	cout << "\n-------------------------------------------" << endl;
+	cout << cmpNum(res1, res2, n * 2) << endl;
+	cout << "-------------------------------------------" << endl;
+
+	delete[] res1;
+	delete[] res2;
     return 0;
+
+}
+
+int cmpNum(int * x, int * y, int size) {
+	int c = 0;
+	for (int i = 0; i < size; i++) {
+		if (x[i] != y[i])
+			c++;
+	}
+	return c;
 }
 
 void printIntArr(int * arr, int size) {
 	int j = 0;
-	//for (j = 0; (j < size - 1) && (arr[j] == 0); j++) { // skip all leading zero's
-	//}
+	for (j = 0; (j < size - 1) && (arr[j] == 0); j++) { // skip all leading zero's
+	}
 	for (int i = j; i < size; i++)
 		cout << arr[i];
 }

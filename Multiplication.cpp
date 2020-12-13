@@ -8,7 +8,7 @@ using namespace std;
 int* Multiplication::RegularMultiplication(int* x, int* y, int x_size, int y_size) {
 	int idx_x, idx_y, carry, sum;
 	int resSize = x_size + y_size;
-	int* res = new int[resSize];
+	int* res = new int[resSize]();
 
 	for (int i = 0; i < resSize; i++)
 		res[i] = 0;
@@ -45,85 +45,98 @@ int* Multiplication::RegularMultiplication(int* x, int* y, int x_size, int y_siz
 void Multiplication::KaratsubaRecursive_tmp(int* x, int* y, long int size, int* res) {
 	// x*y = (a*c)*10^n + (b*d)  + ((a+b)*(c+d)-a*c-b*d)* 10^(n/2) 
 
-	//if (size <= 2)
-	//{
-	//	int * mul = RegularMultiplication(x, y, size, size);
-	//	memcpy(res, mul, size * 2 * sizeof(int));
-	//	delete[] mul;
+	if (size <= 2)
+	{
+		int * mul = RegularMultiplication(x, y, size, size);
+		memcpy(res, mul, size * 2 * sizeof(int));
+		delete[] mul;
+		return;
+	}
+
+	//if (size == 1) 
+	//{	// res size = 2
+	//	int mul = x[0] * y[0];
+	//	res[1] = mul % 10;
+	//	res[0] = mul / 10;
 	//	return;
 	//}
-
-	////if (size == 1) 
-	////{	// res size = 2
-	////	int mul = x[0] * y[0];
-	////	res[1] = mul % 10;
-	////	res[0] = mul / 10;
-	////	return;
-	////}
-	////if (size == 2 && x[0] == 0 && y[0] == 0)
-	////{	// res size = 4
-	////	int mul = x[1] * y[1];
-	////	res[3] = mul % 10;
-	////	res[2] = mul / 10;
-	////	return;
-	////}
-	//
-	//int *a, *b, *c, *d, *ac, *bd;
-	//long int aSize, bSize, cSize, dSize, acSize, bdSize;
-
-	//aSize = cSize = size / 2;
-	//bSize = dSize = size - (size / 2);
-	//acSize = (size / 2) * 2;
-	//bdSize = (size - (size / 2)) * 2;
-
-	//a = x;
-	//b = x + aSize;
-	//c = y;
-	//d = y + cSize;
-	//ac = res;					
-	//bd = res + (size / 2) * 2;	
-
-	//KaratsubaRecursive(a, c, aSize, ac);	// aSize == cSize
-	//KaratsubaRecursive(b, d, bSize, bd);	// bSize == dSize
-
-	//long int s_aPlusb = 0, s_cPlusd = 0, s_prodOfSum = 0, s_sumOfProd = 0, s_middle = 0, s_sum1 = 0;
-
-	//// (a+b)
-	//int* aPlusb = adder(a, b, aSize, bSize , s_aPlusb);
-	//// (c+d)
-	//int* cPlusd = adder(c, d, cSize, dSize, s_cPlusd);	
-
-	//if (aPlusb[0] == 0 && cPlusd[0] == 0) // s_aPlusb == s_cPlusd
-	//	s_prodOfSum = (s_aPlusb - 1) * 2;
-	//else
-	//	s_prodOfSum = s_aPlusb * 2;
-
-	//// (a+b)*(c+d)
-	//int* prodOfSum = new int[s_prodOfSum]();
-	//KaratsubaRecursive(aPlusb, cPlusd, s_aPlusb, prodOfSum);
-
-	//// (a*c)+(b*d)
-	//int* sumOfProd = adder(ac, bd, acSize, bdSize, s_sumOfProd);
-	//
-	//// (a+b)*(c+d) - (a*c)+(b*d)
-	//int* middle = subtractor(prodOfSum, sumOfProd, s_prodOfSum, s_sumOfProd, s_middle);
-
-
-	//// (a*c)*10^n + (b*d)  + ((a+b)*(c+d)-a*c-b*d)* 10^(n/2) 
-	//int* sum1 = adder(res, middle, (size * 2) - ((size + 1) / 2), s_middle, s_sum1);
-	//
-
-	//for (int i = (size * 2) - ((size + 1) / 2) - 1, j = s_sum1 - 1; i >= 0 && j >= 0; i--, j--) {
-	//	res[i] = sum1[j];
+	//if (size == 2 && x[0] == 0 && y[0] == 0)
+	//{	// res size = 4
+	//	int mul = x[1] * y[1];
+	//	res[3] = mul % 10;
+	//	res[2] = mul / 10;
+	//	return;
 	//}
+	
+	int *a, *b, *c, *d, *ac, *bd;
+	long int firstHalf, secondHalf, acSize, bdSize;
 
-	//delete[] prodOfSum;
-	//delete[] sumOfProd;
-	//delete[] aPlusb;
-	//delete[] cPlusd;
-	//delete[] middle;
-	//delete[] sum1;
-	//return;
+	firstHalf = size / 2;
+	secondHalf = size - (size / 2);
+	acSize = (size / 2) * 2;
+	bdSize = (size - (size / 2)) * 2;
+
+	a = x;
+	b = x + firstHalf;
+	c = y;
+	d = y + firstHalf;
+	ac = res;					
+	bd = res + acSize;
+
+	KaratsubaRecursive_tmp(a, c, firstHalf, ac);	// return size = (size / 2) * 2
+	KaratsubaRecursive_tmp(b, d, secondHalf, bd);	// return size = (size - (size / 2)) * 2
+
+	long int aPlusbSize = 0, cPlusdSize = 0, prodOfSumSize = 0, subSize = 0, middleSize = 0;
+
+	// (a+b)
+	int* aPlusb = adder(a, b, firstHalf, secondHalf , aPlusbSize);	// (size - (size / 2)) + 1
+	// (c+d)
+	int* cPlusd = adder(c, d, firstHalf, secondHalf, cPlusdSize);		// (size - (size / 2)) + 1
+	
+	// (a+b)*(c+d)
+	int* prodOfSum;
+	if (aPlusb[0] == 0 && cPlusd[0] == 0)
+	{	// aPlusbSize == cPlusdSize
+		prodOfSumSize = (aPlusbSize - 1) * 2;			
+		prodOfSum = new int[prodOfSumSize]();
+		KaratsubaRecursive_tmp(aPlusb + 1, cPlusd + 1, aPlusbSize - 1, prodOfSum);	// prodOfSumSize = (size - (size / 2)) * 2 
+	}
+	else 
+	{
+		prodOfSumSize = aPlusbSize * 2;
+		prodOfSum = new int[prodOfSumSize]();
+		KaratsubaRecursive_tmp(aPlusb, cPlusd, aPlusbSize, prodOfSum);	// prodOfSumSize = (size - (size / 2)) * 2 + 2
+	}
+
+	
+	// (a+b)*(c+d)- (a*c)
+	int* sub = subtractor(prodOfSum, ac, prodOfSumSize, acSize, subSize);	// subSize = prodOfSumSize
+																			//	(size - (size / 2)) * 2	 OR  (size - (size / 2)) * 2 + 2
+	
+	// (a+b)*(c+d) - (a*c) - (b*d)
+	int* middle = subtractor(sub, bd, subSize, bdSize, middleSize);		// middleSize = prodOfSumSize
+																		//	(size - (size / 2)) * 2	 OR  (size - (size / 2)) * 2 + 2
+	// (ac)*10^size + mid* 10^(size/2) + (bd)
+	int carry = 0, sum;
+	long int i, j;
+	for (i = size * 2 - (size + 1) / 2 - 1, j = middleSize - 1; j >= 0; i--, j--)
+	{
+		sum = res[i] + middle[j] + carry;
+		res[i] = sum % 10;
+		carry = sum / 10;
+	}
+	while (carry && i >=0) {
+		sum = res[i] + carry;
+		res[i] = sum % 10;
+		carry = sum / 10;
+		i--;
+	}
+
+	delete[] aPlusb;
+	delete[] cPlusd;
+	delete[] sub;
+	delete[] middle;
+	return;
 }
 
 int* Multiplication::adder(int* x, int* y, long int x_size, long int y_size, long int& resSize)
@@ -162,7 +175,6 @@ int* Multiplication::adder(int* x, int* y, long int x_size, long int y_size, lon
 	if (write >= 0)
 		res[write] = carry;
 	
-	//if (carry)	//{	//	int* resWithCarry = new int[resSize + 1]();	//	memcpy(resWithCarry + 1, res, resSize * sizeof(int));	//	resWithCarry[0] = carry;	//	resSize++;	//	delete[] res;	//	return resWithCarry;	//}
 	return res;
 }
 
