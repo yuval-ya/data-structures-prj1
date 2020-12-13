@@ -3,9 +3,7 @@
 #include <iostream>
 using namespace std;
 
-
-
-int* Multiplication::RegularMultiplication(int* x, int* y, int x_size, int y_size) {
+int* Multiplication::RegularMultiplication(int* x, int* y, long int x_size, long int y_size) {
 	int idx_x, idx_y, carry, sum;
 	int resSize = x_size + y_size;
 	int* res = new int[resSize]();
@@ -41,9 +39,9 @@ int* Multiplication::RegularMultiplication(int* x, int* y, int x_size, int y_siz
 	return reversedRes;
 }
 
-
 void Multiplication::KaratsubaRecursive_tmp(int* x, int* y, long int size, int* res) {
 	// x*y = (a*c)*10^n + (b*d)  + ((a+b)*(c+d)-a*c-b*d)* 10^(n/2) 
+
 
 	if (size <= 2)
 	{
@@ -53,21 +51,6 @@ void Multiplication::KaratsubaRecursive_tmp(int* x, int* y, long int size, int* 
 		return;
 	}
 
-	//if (size == 1) 
-	//{	// res size = 2
-	//	int mul = x[0] * y[0];
-	//	res[1] = mul % 10;
-	//	res[0] = mul / 10;
-	//	return;
-	//}
-	//if (size == 2 && x[0] == 0 && y[0] == 0)
-	//{	// res size = 4
-	//	int mul = x[1] * y[1];
-	//	res[3] = mul % 10;
-	//	res[2] = mul / 10;
-	//	return;
-	//}
-	
 	int *a, *b, *c, *d, *ac, *bd;
 	long int firstHalf, secondHalf, acSize, bdSize;
 
@@ -80,7 +63,7 @@ void Multiplication::KaratsubaRecursive_tmp(int* x, int* y, long int size, int* 
 	b = x + firstHalf;
 	c = y;
 	d = y + firstHalf;
-	ac = res;					
+	ac = res;
 	bd = res + acSize;
 
 	KaratsubaRecursive_tmp(a, c, firstHalf, ac);	// return size = (size / 2) * 2
@@ -89,30 +72,30 @@ void Multiplication::KaratsubaRecursive_tmp(int* x, int* y, long int size, int* 
 	long int aPlusbSize = 0, cPlusdSize = 0, prodOfSumSize = 0, subSize = 0, middleSize = 0;
 
 	// (a+b)
-	int* aPlusb = adder(a, b, firstHalf, secondHalf , aPlusbSize);	// (size - (size / 2)) + 1
+	int* aPlusb = adder(a, b, firstHalf, secondHalf, aPlusbSize);	// (size - (size / 2)) + 1
 	// (c+d)
 	int* cPlusd = adder(c, d, firstHalf, secondHalf, cPlusdSize);		// (size - (size / 2)) + 1
-	
+
 	// (a+b)*(c+d)
 	int* prodOfSum;
 	if (aPlusb[0] == 0 && cPlusd[0] == 0)
 	{	// aPlusbSize == cPlusdSize
-		prodOfSumSize = (aPlusbSize - 1) * 2;			
+		prodOfSumSize = (aPlusbSize - 1) * 2;
 		prodOfSum = new int[prodOfSumSize]();
 		KaratsubaRecursive_tmp(aPlusb + 1, cPlusd + 1, aPlusbSize - 1, prodOfSum);	// prodOfSumSize = (size - (size / 2)) * 2 
 	}
-	else 
+	else
 	{
 		prodOfSumSize = aPlusbSize * 2;
 		prodOfSum = new int[prodOfSumSize]();
 		KaratsubaRecursive_tmp(aPlusb, cPlusd, aPlusbSize, prodOfSum);	// prodOfSumSize = (size - (size / 2)) * 2 + 2
 	}
 
-	
+
 	// (a+b)*(c+d)- (a*c)
 	int* sub = subtractor(prodOfSum, ac, prodOfSumSize, acSize, subSize);	// subSize = prodOfSumSize
 																			//	(size - (size / 2)) * 2	 OR  (size - (size / 2)) * 2 + 2
-	
+
 	// (a+b)*(c+d) - (a*c) - (b*d)
 	int* middle = subtractor(sub, bd, subSize, bdSize, middleSize);		// middleSize = prodOfSumSize
 																		//	(size - (size / 2)) * 2	 OR  (size - (size / 2)) * 2 + 2
@@ -125,7 +108,7 @@ void Multiplication::KaratsubaRecursive_tmp(int* x, int* y, long int size, int* 
 		res[i] = sum % 10;
 		carry = sum / 10;
 	}
-	while (carry && i >=0) {
+	while (carry && i >= 0) {
 		sum = res[i] + carry;
 		res[i] = sum % 10;
 		carry = sum / 10;
@@ -145,14 +128,14 @@ int* Multiplication::adder(int* x, int* y, long int x_size, long int y_size, lon
 	resSize = ((x_size > y_size) ? x_size : y_size) + 1; // max size + 1
 	res = new int[resSize]();
 
-	write = resSize -1;
+	write = resSize - 1;
 	x_idx = x_size - 1;
 	y_idx = y_size - 1;
 	carry = 0;
 
 	while (x_idx >= 0 && y_idx >= 0) {
 		sum = carry + x[x_idx] + y[y_idx];
-		res[write] = sum % 10;   
+		res[write] = sum % 10;
 		carry = sum / 10;
 		write--;
 		x_idx--;
@@ -174,10 +157,9 @@ int* Multiplication::adder(int* x, int* y, long int x_size, long int y_size, lon
 	}
 	if (write >= 0)
 		res[write] = carry;
-	
+
 	return res;
 }
-
 
 int* Multiplication::subtractor(int* x, int* y, long int x_size, long int y_size, long int& resSize)
 {	//Assuming the x > y
@@ -189,7 +171,7 @@ int* Multiplication::subtractor(int* x, int* y, long int x_size, long int y_size
 	x_idx = x_size - 1;
 	y_idx = y_size - 1;
 
-	while (x_idx >= 0 && y_idx >= 0) {		
+	while (x_idx >= 0 && y_idx >= 0) {
 		sum = x[x_idx] - y[y_idx] + carry;
 		res[write] = (10 + sum) % 10;  // ? sum % 10;
 		carry = ((x[x_idx] - y[y_idx] + carry) < 0) ? -1 : 0;
@@ -197,7 +179,7 @@ int* Multiplication::subtractor(int* x, int* y, long int x_size, long int y_size
 		x_idx--;
 		y_idx--;
 	}
-	while (x_idx >= 0) { 
+	while (x_idx >= 0) {
 		sum = x[x_idx] + carry;
 		res[write] = (10 + sum) % 10;  // ? sum % 10;
 		carry = ((x[x_idx] + carry) < 0) ? -1 : 0;
@@ -208,16 +190,6 @@ int* Multiplication::subtractor(int* x, int* y, long int x_size, long int y_size
 	return res;
 }
 
-
 void Multiplication::KaratsubaIterative() {
 
-}
-
-void Multiplication::printIntArr(int * arr, int size) {
-	int j = 0;
-	//for (j = 0; (j < size - 1) && (arr[j] == 0); j++) { // skip all leading zero's
-	//}
-	for (int i = j; i < size; i++)
-		cout << arr[i];
-	cout << endl;
 }

@@ -59,6 +59,7 @@ int main() {
 	int* res2 = new int[n * 2]();
 	Multiplication::KaratsubaRecursive_tmp(x, y, n, res2);
 	cout << "\nKaratsuba(recursive) : x * y = ";
+
 	printIntArr(res2, 2 * n);
 
 	
@@ -154,60 +155,14 @@ int* getNumArr(long int size, int& input_flag) {
 	}
 
 	if (i < size) 
-	{ // case the input is smaller than the size received
+	{	// case the input is smaller than the size received
 		input_flag = -2;
 		delete[] res;
 		return nullptr;
 	}
 
-	//if (i < size) 
-	//{	// fill with zeros from the left of the number if the digits are smaller than the size received
-	//	int diff = size - i;
-	//	for (int j = size - 1; j >= 0 ; j--)
-	//	{
-	//		if (j - diff >= 0)
-	//			res[j] = res[j - diff];
-	//		else
-	//			res[j] = 0;
-	//	}
-	//}
 	return res;
 }
-
-void multiplyA(int* num1, int* num2, int size1, int size2){
-    
-    int idx_num1, idx_num2, carry, sum;
-    int* res = new int[size1 + size2];
-
-    for(int i = size1 + size2 - 1; i >= 0; i--)
-        res[i] = 0;
-    
-    idx_num1 = idx_num2 = 0;
-    
-    for (int i = size1 - 1; i >= 0; i--)
-    {
-        carry = 0;
-        idx_num2 = 0;
-        
-        for (int j = size2 - 1; j >= 0; j--)
-        {
-            sum = 0;
-            sum = num1[i] * num2[j] + carry + res[idx_num1 + idx_num2];
-            carry = sum / 10;
-            res[idx_num1 + idx_num2] = sum % 10;
-            idx_num2++;
-        }
-        
-        res[idx_num1 + idx_num2] += carry;
-        idx_num1++;
-    }
-    
-    for(int i = size1 + size2 - 1; i >= 0; i--)
-        cout << res[i];
-
-	delete[] res;
-}
-
 
 void file_writer()
 {
