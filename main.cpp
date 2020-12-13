@@ -6,6 +6,9 @@
 //  Copyright © 2020 Tamir Houri 205668627 & Yuval Yakovskind 316550524. All rights reserved.
 //
 
+#define _CRTDB_MAP_ALLOC
+#include <crtdbg.h>
+
 #include "main.h"
 #include "Multiplication.h"
 
@@ -14,35 +17,38 @@
 #include <fstream>
 using namespace std;
 
-int main() {
-	int input_flag = 1;	
+void main(void) {
 
-	long int n = getSize(input_flag);	
+	int input_flag = 1;
+
+	long int n = getSize(input_flag);
 	if (input_flag < 0) {
 		cout << "wrong output";  //wrong input?
-		return 0;
+		return;
 	}
 
-    int *x, *y;
-	x = getNumArr(n, input_flag);
+	int* x = getNumArr(n, input_flag);
 	if (input_flag < 0) {
 		cout << "wrong output"; //wrong input?
-		return 0;
+		return;
 	}
 
-	y = getNumArr(n, input_flag);
+	int* y = getNumArr(n, input_flag);
 	if (input_flag < 0) {
 		cout << "wrong output"; //wrong input?
-		return 0;
+		return;
 	}
-    
-    cout << "------------" << endl;
-    cout << "Number 1 = ";
+
+	cout << "------------" << endl;
+	cout << "Number 1 = ";
 	printIntArr(x, n);
-    cout << "\nNumber 2 = ";
+	cout << "\nNumber 2 = ";
 	printIntArr(y, n);
-    cout << "\n------------" << endl;
-    cout << "Result = ";
+	cout << "\n------------" << endl;
+	cout << "Result = " << endl;
+
+	Multiplication::RegularMultiplicationHelper(x, y, n, n);
+	Multiplication::KaratsubaRecursiveHelper(x, y, n);
 
 	//** adder check **
 	//long int size = 0;
@@ -50,38 +56,35 @@ int main() {
 	//printIntArr(res, size);
 	//delete[] res;
 	//** func1 check **
-	int* res1 = Multiplication::RegularMultiplication(x, y, n, n);
-	cout << "Long multiplication : x * y = ";
-	printIntArr(res1, 2 * n);
+
+	//int* res1 = Multiplication::RegularMultiplication(x, y, n, n);
+	//cout << "Long multiplication : x * y = ";
+	//printIntArr(res1, 2 * n);
+	//delete[] res1;
 
 
-	//** func2 check **
-	int* res2 = new int[n * 2]();
-	Multiplication::KaratsubaRecursive_tmp(x, y, n, res2);
-	cout << "\nKaratsuba(recursive) : x * y = ";
-
-	printIntArr(res2, 2 * n);
-
-	
-	//int* res3 = Multiplication::RegularMultiplication(x, y, n, n);
-	//cout << "\nKaratsuba(iterative) : x * y = ";
+	//int* res2 = new int[n * 2]();
+	//Multiplication::KaratsubaRecursive(x, y, n, res2);
+	//cout << "\nKaratsuba(recursive) : x * y = ";
 	//printIntArr(res2, 2 * n);
+	//delete[] res2;
+
+
+	//int* res3 = new int[n * 2]();
+	//Multiplication::RegularMultiplication(x, y, n, res3);
+	//cout << "\nKaratsuba(iterative) : x * y = ";
+	//printIntArr(res3, 2 * n);
 	//delete[] res3;
-	
-	// 30 = 876234020838765345918273004980
-	// 30 = 123987654230004995884323123721
-	// 60 = 123987654230083876534591827300498004995884323123721876234020
-	// 60 = 356767567867986773456234513465475684678467724562624563747000
 
+	//cout << "\n-------------------------------------------" << endl;
+	//cout << cmpNum(res1, res2, n * 2) << endl;
+	//cout << "-------------------------------------------" << endl;
 
-	cout << "\n-------------------------------------------" << endl;
-	cout << cmpNum(res1, res2, n * 2) << endl;
-	cout << "-------------------------------------------" << endl;
+	//delete[] res1;
+	//delete[] res2;
 
-	delete[] res1;
-	delete[] res2;
-    return 0;
-
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	_CrtDumpMemoryLeaks();
 }
 
 int cmpNum(int * x, int * y, int size) {
