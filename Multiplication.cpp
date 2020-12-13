@@ -42,14 +42,21 @@ int* Multiplication::RegularMultiplication(int* x, int* y, long int x_size, long
 void Multiplication::KaratsubaRecursive_tmp(int* x, int* y, long int size, int* res) {
 	// x*y = (a*c)*10^n + (b*d)  + ((a+b)*(c+d)-a*c-b*d)* 10^(n/2) 
 
-
-	if (size <= 2)
-	{
-		int * mul = RegularMultiplication(x, y, size, size);
-		memcpy(res, mul, size * 2 * sizeof(int));
-		delete[] mul;
+	if (size == 1) 
+	{	// res size = 2
+		int mul = x[0] * y[0];
+		res[1] = mul % 10;
+		res[0] = mul / 10;
 		return;
 	}
+
+	//if (size <= 2)
+	//{
+	//	int * mul = RegularMultiplication(x, y, size, size);
+	//	memcpy(res, mul, size * 2 * sizeof(int));
+	//	delete[] mul;
+	//	return;
+	//}
 
 	int *a, *b, *c, *d, *ac, *bd;
 	long int firstHalf, secondHalf, acSize, bdSize;
@@ -102,7 +109,7 @@ void Multiplication::KaratsubaRecursive_tmp(int* x, int* y, long int size, int* 
 	// (ac)*10^size + mid* 10^(size/2) + (bd)
 	int carry = 0, sum;
 	long int i, j;
-	for (i = size * 2 - (size + 1) / 2 - 1, j = middleSize - 1; j >= 0; i--, j--)
+	for (i = size * 2 - (size + 1) / 2 - 1, j = middleSize - 1; j >= 0 && i >= 0; i--, j--)
 	{
 		sum = res[i] + middle[j] + carry;
 		res[i] = sum % 10;
