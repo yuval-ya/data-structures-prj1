@@ -104,7 +104,6 @@ void Multiplication::KaratsubaRecursiveHelper(int* x, int* y, long int size)
 	myfile << "\n===================================================================\n";
 	myfile.close();
 
-
 	cout << "\nKaratsuba(recursive) : x * y = ";
 	printIntArr(res, 2 * size);
 	delete[] res;

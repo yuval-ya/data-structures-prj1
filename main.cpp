@@ -17,26 +17,27 @@
 #include <fstream>
 using namespace std;
 
-void main(void) {
+int main(void) {
 
 	int input_flag = 1;
 
 	long int n = getSize(input_flag);
 	if (input_flag < 0) {
 		cout << "wrong output";  //wrong input?
-		return;
+		return 0;
 	}
 
 	int* x = getNumArr(n, input_flag);
 	if (input_flag < 0) {
 		cout << "wrong output"; //wrong input?
-		return;
+		return 0;
 	}
 
 	int* y = getNumArr(n, input_flag);
 	if (input_flag < 0) {
 		cout << "wrong output"; //wrong input?
-		return;
+		delete[] x;
+		return 0;
 	}
 
 	cout << "------------" << endl;
@@ -55,21 +56,21 @@ void main(void) {
 	//int* res = Multiplication::adder(x, y, n, n, size);
 	//printIntArr(res, size);
 	//delete[] res;
+	
 	//** func1 check **
-
 	//int* res1 = Multiplication::RegularMultiplication(x, y, n, n);
 	//cout << "Long multiplication : x * y = ";
 	//printIntArr(res1, 2 * n);
 	//delete[] res1;
 
-
+	//** func2 check **
 	//int* res2 = new int[n * 2]();
 	//Multiplication::KaratsubaRecursive(x, y, n, res2);
 	//cout << "\nKaratsuba(recursive) : x * y = ";
 	//printIntArr(res2, 2 * n);
 	//delete[] res2;
 
-
+	//** func3 check **
 	//int* res3 = new int[n * 2]();
 	//Multiplication::RegularMultiplication(x, y, n, res3);
 	//cout << "\nKaratsuba(iterative) : x * y = ";
@@ -82,9 +83,12 @@ void main(void) {
 
 	//delete[] res1;
 	//delete[] res2;
+	delete[] x;
+	delete[] y;
 
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	_CrtDumpMemoryLeaks();
+	return 0;
 }
 
 int cmpNum(int * x, int * y, int size) {
