@@ -1,5 +1,6 @@
 #include "Multiplication.h"
 
+#include <iomanip>
 #include <iostream>
 #include <chrono>
 #include <fstream>
@@ -53,8 +54,7 @@ void Multiplication::RegularMultiplicationHelper(int* x, int* y, long int x_size
 	double time_taken = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
 	time_taken *= 1e-9;
 	ofstream myfile("Measure.txt", ios::app); // The name of the file
-	myfile << endl;								////////////////////****************************** change to ios::trunc and del this line
-	myfile << "Time taken by function RegularMultiplication is : " << fixed << time_taken/* << setprecision(9)*/;
+	myfile << "Time taken by function RegularMultiplication is : " << fixed << time_taken << setprecision(9);
 	myfile << " sec" << endl;
 	myfile.close();
 

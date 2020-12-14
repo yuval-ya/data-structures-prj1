@@ -1,8 +1,6 @@
 #include "ItemType.h"
 
-
 namespace stk {
-
 
 ItemType::ItemType(Line line, int*x, int*y, long int size,  int*res, int*aPlusb, int* cPlusd, int* prodOfSum, long int prodOfSumSize) :    line(line), x(x), y(y),
                         res(res), size(size),
@@ -15,6 +13,9 @@ ItemType::ItemType(const ItemType& other) : line(other.line), x(other.x), y(othe
                                             aPlusb(other.aPlusb), cPlusd(other.cPlusd),
                                             prodOfSum(other.prodOfSum), prodOfSumSize(other.prodOfSumSize) {}
 
+
+ItemType::~ItemType() {
+}
 
 void ItemType::delete_aPlusB() {
 	delete[] aPlusb;

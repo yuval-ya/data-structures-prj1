@@ -88,27 +88,12 @@ int main(void) {
 	delete[] x;
 	delete[] y;
 
-//	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-//	_CrtDumpMemoryLeaks();
+	//_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	//_CrtDumpMemoryLeaks();
 	return 0;
 }
 
-int cmpNum(int * x, int * y, int size) {
-	int c = 0;
-	for (int i = 0; i < size; i++) {
-		if (x[i] != y[i])
-			c++;
-	}
-	return c;
-}
 
-void printIntArr(int * arr, int size) {
-	int j = 0;
-	for (j = 0; (j < size - 1) && (arr[j] == 0); j++) { // skip all leading zero's
-	}
-	for (int i = j; i < size; i++)
-		cout << arr[i];
-}
 
 long int getSize(int& input_flag) {
 	long int res = 0;
@@ -173,20 +158,3 @@ int* getNumArr(long int size, int& input_flag) {
 	return res;
 }
 
-void file_writer()
-{
-	auto start = chrono::high_resolution_clock::now();
-	// unsync the I/O of C and C++.
-	ios_base::sync_with_stdio(false);
-	//fun();		// Here you put the name of the function you wish to measure
-	auto end = chrono::high_resolution_clock::now();
-	// Calculating total time taken by the program.
-	double time_taken =
-		chrono::duration_cast<chrono::nanoseconds>(end - start).count();
-	time_taken *= 1e-9;
-	ofstream myfile("Measure.txt"); // The name of the file
-	myfile << "Time taken by function <name-of-fun> is : " << fixed
-		<< time_taken/* << setprecision(9)*/;
-	myfile << " sec" << endl;
-	myfile.close();
-}

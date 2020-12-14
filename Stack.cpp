@@ -37,7 +37,6 @@ ItemType Stack::Pop(){
     if (IsEmpty()) {
         // Handle Error
     }
-    
     Node* temp = _top;
     ItemType item = _top->data;
     _top = _top->next;

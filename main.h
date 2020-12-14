@@ -7,8 +7,6 @@
 //
 
 #pragma once
-//#include "Stack.h"
-//using namespace stk;
 
 long int getSize(int& input_flag);
 int* getNumArr(long int size, int& input_flag);

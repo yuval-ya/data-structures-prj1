@@ -75,7 +75,7 @@ void Multiplication::KaratsubaRecursive(int* x, int* y, long int size, int* res)
 	while (carry && i >= 0) {
 		sum = res[i] + carry;
 		res[i] = sum % 10;
-		carry = sum / 10;
+		carry = sum / 10;					      
 		i--;
 	}
 

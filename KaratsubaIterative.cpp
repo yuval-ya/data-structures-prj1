@@ -20,8 +20,8 @@ void Multiplication::KaratsubaIterative(int* x, int* y, long int size, int* res)
         
         long int firstHalf = curr.getSize()/2;
         long int secondHalf = curr.getSize() - firstHalf;
-        
-        if (curr.get_line() == Line::START)
+		Line line = curr.get_line();
+        if (line == Line::START)
         {
             if (curr.getSize() == 1){
                 int mul = curr.getX()[0] * curr.getY()[0];
@@ -36,14 +36,14 @@ void Multiplication::KaratsubaIterative(int* x, int* y, long int size, int* res)
                 returnFromRecursion = 0;
             }
         }
-        else if (curr.get_line() == Line::AFTER_FIRST){
+        else if (line == Line::AFTER_FIRST){
             curr.set_line(Line::AFTER_SECOND);
             s.Push(curr);
         
             curr = ItemType(Line::START, curr.getX() + firstHalf , curr.getY() + firstHalf ,secondHalf, curr.get_res() + firstHalf*2);
             returnFromRecursion = 0;
         }
-        else if (curr.get_line() == Line::AFTER_SECOND){
+        else if (line == Line::AFTER_SECOND){
             curr.set_line(Line::AFTER_THIRD); 
             long int aPlusbSize = 0, cPlusdSize = 0;
 
@@ -68,7 +68,7 @@ void Multiplication::KaratsubaIterative(int* x, int* y, long int size, int* res)
 			curr = ItemType(Line::START, aPlusb, cPlusd, aPlusbSize, prodOfSum);
 			returnFromRecursion = 0;
         }
-		else if (curr.get_line() == Line::AFTER_THIRD) {
+		else if (line == Line::AFTER_THIRD) {
 			curr.delete_aPlusB();
 			curr.delete_cPlusd();
 			

@@ -2,17 +2,23 @@
 
 namespace stk {
 
+// The number of the recursive call
 enum class Line { START, AFTER_FIRST, AFTER_SECOND, AFTER_THIRD };
 
 class ItemType {
     
+	// A class that store values for each iteration in the karatsuba algorithm
+
 private:
     int *x, *y, *aPlusb, *cPlusd, *prodOfSum, *res;
     long int size, prodOfSumSize;
     Line line;
+
 public:
+
     ItemType(Line line = Line::START, int *x = nullptr, int *y = nullptr, long int size = 0, int *res = nullptr, int *aPlusb = nullptr, int *cPlusd = nullptr,int *prodOfSum = nullptr, long int prodOfSumSize = 0);
     ItemType(const ItemType&);
+	~ItemType();
     
     int* getX() const { return x;}
     int* getY() const { return y;}
@@ -35,6 +41,7 @@ public:
     void set_prodOfSumSize(long int size) { prodOfSumSize = size; }
     void set_line(Line line) { this->line = line;}
 
+	// Delete the memory allocations and insert nullptr to the variable
 	void delete_aPlusB();
 	void delete_cPlusd();
 	void delete_prodOfSum();
