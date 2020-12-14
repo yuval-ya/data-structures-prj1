@@ -19,7 +19,7 @@ public:
     int* get_aPlusB() const { return aPlusb;}
     int* get_cPlusd() const { return cPlusd;}
     int* get_prodOfSum() const { return prodOfSum;}
-    int* get_res() const { return res;}
+    int* get_res() { return res;}
     long int getSize() const { return size;}
     long int get_prodOfSumSize() const { return prodOfSumSize;}
     Line get_line() const { return line; }
@@ -34,6 +34,10 @@ public:
     void setSize(long int size) { this->size = size ;}
     void set_prodOfSumSize(long int size) { prodOfSumSize = size; }
     void set_line(Line line) { this->line = line;}
+
+	void delete_aPlusB();
+	void delete_cPlusd();
+	void delete_prodOfSum();
 
     void operator=(const ItemType& other);
 };

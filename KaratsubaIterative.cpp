@@ -44,9 +44,8 @@ void Multiplication::KaratsubaIterative(int* x, int* y, long int size, int* res)
             returnFromRecursion = 0;
         }
         else if (curr.get_line() == Line::AFTER_SECOND){
-            curr.set_line(Line::AFTER_THIRD);
-            
-            long int aPlusbSize = 0, cPlusdSize = 0, prodOfSumSize = 0;
+            curr.set_line(Line::AFTER_THIRD); 
+            long int aPlusbSize = 0, cPlusdSize = 0;
 
             // (a+b)
             int* aPlusb = adder(curr.getX(), curr.getX() + firstHalf, firstHalf, secondHalf, aPlusbSize);
@@ -55,26 +54,68 @@ void Multiplication::KaratsubaIterative(int* x, int* y, long int size, int* res)
             int* cPlusd = adder(curr.getY(), curr.getY() + firstHalf, firstHalf, secondHalf, cPlusdSize);
             curr.set_cPlusd(cPlusd); // (size - (size / 2)) + 1
 
-            int *prodOfSum;
-            
-            if (aPlusb[0] == 0 && cPlusd[0] == 0)
-            {
-                prodOfSumSize = (aPlusbSize - 1) * 2;    // aPlusbSize == cPlusdSize
-                
-
+            if (aPlusb[0] == 0 && cPlusd[0] == 0) {
+                aPlusbSize--;				// aPlusbSize == cPlusdSize
+				aPlusb = aPlusb + 1;
+				cPlusd = cPlusd + 1;
             }
-            else
-            {
-                prodOfSumSize = aPlusbSize * 2;
-            }
-            
+            long int prodOfSumSize = aPlusbSize * 2;
+			int *prodOfSum = new int[prodOfSumSize]();
+			curr.set_prodOfSum(prodOfSum);
+			curr.set_prodOfSumSize(prodOfSumSize);
             s.Push(curr);
-            
+
+			curr = ItemType(Line::START, aPlusb, cPlusd, aPlusbSize, prodOfSum);
+			returnFromRecursion = 0;
         }
+		else if (curr.get_line() == Line::AFTER_THIRD) {
+			curr.delete_aPlusB();
+			curr.delete_cPlusd();
+			
+			int* prodOfSum = curr.get_prodOfSum();
+			int* currRes = curr.get_res();
+			long int prodOfSumSize = curr.get_prodOfSumSize();
+			subtractor(prodOfSum, currRes, prodOfSumSize, firstHalf * 2);
+			subtractor(prodOfSum, currRes + firstHalf * 2, prodOfSumSize, secondHalf * 2);
+
+			int carry = 0, sum;
+			long int size = curr.getSize(), i, j;
+			for (i = size * 2 - (size + 1) / 2 - 1, j = prodOfSumSize - 1; j >= 0 && i >= 0; i--, j--) {
+				sum = currRes[i] + prodOfSum[j] + carry;
+				currRes[i] = sum % 10;
+				carry = sum / 10;
+			}
+			while (carry && i >= 0) {
+				sum = currRes[i] + carry;
+				currRes[i] = sum % 10;
+				carry = sum / 10;
+				i--;
+			}
+			curr.delete_prodOfSum();
+			returnFromRecursion = 1;
+		}
     }
     while (!s.IsEmpty());
 }
 
 void Multiplication::KaratsubaIterativeHelper(int* x, int* y, long int size) {
+	int* res = new int[size * 2]();
 
+	auto start = chrono::high_resolution_clock::now();
+	// unsync the I/O of C and C++.
+	ios_base::sync_with_stdio(false);
+	KaratsubaIterative(x, y, size, res);		// Here you put the name of the function you wish to measure
+	auto end = chrono::high_resolution_clock::now();
+	// Calculating total time taken by the program.
+	double time_taken = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
+	time_taken *= 1e-9;
+	ofstream myfile("Measure.txt", ios::app); // The name of the file
+	myfile << "Time taken by function KaratsubaIterative is : " << fixed << time_taken /*<< setprecision(9)*/;
+	myfile << " sec" << endl;
+	myfile << "\n===================================================================\n";
+	myfile.close();
+
+	cout << "\nKaratsuba(Iterative) : x * y = ";
+	printIntArr(res, 2 * size);
+	delete[] res;
 }

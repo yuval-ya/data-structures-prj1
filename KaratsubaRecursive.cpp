@@ -57,16 +57,12 @@ void Multiplication::KaratsubaRecursive(int* x, int* y, long int size, int* res)
 	delete[] aPlusb;
 	delete[] cPlusd;
 
-	// sub = (a+b)*(c+d) - (a*c)
-	//int* sub = subtractor(prodOfSum, ac, prodOfSumSize, acSize, subSize);	// subSize = prodOfSumSize
-    subtractorV2(prodOfSum, ac, prodOfSumSize, acSize);
+	//(a+b)*(c+d) - (a*c)
+    subtractor(prodOfSum, ac, prodOfSumSize, acSize);
     
-	// middle = (a+b)*(c+d) - (a*c) - (b*d)
-	//int* middle = subtractor(sub, bd, subSize, bdSize, middleSize);		// middleSize = prodOfSumSize
-    subtractorV2(prodOfSum, bd, prodOfSumSize, bdSize);
+	//(a+b)*(c+d) - (a*c) - (b*d)
+    subtractor(prodOfSum, bd, prodOfSumSize, bdSize);
     
-//	delete[] prodOfSum;
-//	delete[] sub;
 
 	// (ac)*10^size + middle * 10^(size/2) + (bd)
 	int carry = 0, sum;
@@ -83,7 +79,6 @@ void Multiplication::KaratsubaRecursive(int* x, int* y, long int size, int* res)
 		i--;
 	}
 
-//	delete[] middle;
     delete [] prodOfSum;
 	return;
 }
@@ -104,7 +99,6 @@ void Multiplication::KaratsubaRecursiveHelper(int* x, int* y, long int size)
 	ofstream myfile("Measure.txt", ios::app); // The name of the file
 	myfile << "Time taken by function KaratsubaRecursive is : " << fixed << time_taken /*<< setprecision(9)*/;
 	myfile << " sec" << endl;
-	myfile << "\n===================================================================\n";
 	myfile.close();
 
 	cout << "\nKaratsuba(recursive) : x * y = ";

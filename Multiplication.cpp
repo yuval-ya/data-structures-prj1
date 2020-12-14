@@ -55,36 +55,36 @@ int* Multiplication::adder(int* x, int* y, long int x_size, long int y_size, lon
 	return res;
 }
 
-int* Multiplication::subtractor(int* x, int* y, long int x_size, long int y_size, long int& resSize)
-{	//Assuming the x > y
-	int *res, sum, carry = 0, x_idx, y_idx, write;
-	resSize = ((x_size > y_size) ? x_size : y_size); // max size
-	res = new int[resSize];
+//int* Multiplication::subtractor(int* x, int* y, long int x_size, long int y_size, long int& resSize)
+//{	//Assuming the x > y
+//	int *res, sum, carry = 0, x_idx, y_idx, write;
+//	resSize = ((x_size > y_size) ? x_size : y_size); // max size
+//	res = new int[resSize];
+//
+//	write = resSize - 1;
+//	x_idx = x_size - 1;
+//	y_idx = y_size - 1;
+//
+//	while (x_idx >= 0 && y_idx >= 0) {
+//		sum = x[x_idx] - y[y_idx] + carry;
+//		res[write] = (10 + sum) % 10;
+//		carry = ((x[x_idx] - y[y_idx] + carry) < 0) ? -1 : 0;
+//		write--;
+//		x_idx--;
+//		y_idx--;
+//	}
+//	while (x_idx >= 0) {
+//		sum = x[x_idx] + carry;
+//		res[write] = (10 + sum) % 10;
+//		carry = ((x[x_idx] + carry) < 0) ? -1 : 0;
+//		write--;
+//		x_idx--;
+//	}
+//
+//	return res;
+//}
 
-	write = resSize - 1;
-	x_idx = x_size - 1;
-	y_idx = y_size - 1;
-
-	while (x_idx >= 0 && y_idx >= 0) {
-		sum = x[x_idx] - y[y_idx] + carry;
-		res[write] = (10 + sum) % 10;
-		carry = ((x[x_idx] - y[y_idx] + carry) < 0) ? -1 : 0;
-		write--;
-		x_idx--;
-		y_idx--;
-	}
-	while (x_idx >= 0) {
-		sum = x[x_idx] + carry;
-		res[write] = (10 + sum) % 10;
-		carry = ((x[x_idx] + carry) < 0) ? -1 : 0;
-		write--;
-		x_idx--;
-	}
-
-	return res;
-}
-
-void Multiplication::subtractorV2(int* x, int* y, long int x_size, long int y_size)
+void Multiplication::subtractor(int* x, int* y, long int x_size, long int y_size)
 {    //Assuming the x > y
     int sum, carry = 0;
     long int x_idx, y_idx;

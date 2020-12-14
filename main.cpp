@@ -48,8 +48,9 @@ int main(void) {
 	cout << "\n------------" << endl;
 	cout << "Result = " << endl;
 
-//	Multiplication::RegularMultiplicationHelper(x, y, n, n);
-//	Multiplication::KaratsubaRecursiveHelper(x, y, n);
+	Multiplication::RegularMultiplicationHelper(x, y, n, n);
+	Multiplication::KaratsubaRecursiveHelper(x, y, n);
+	Multiplication::KaratsubaIterativeHelper(x, y, n);
 
 	//** adder check **
 	//long int size = 0;
@@ -57,32 +58,33 @@ int main(void) {
 	//printIntArr(res, size);
 	//delete[] res;
 	
-	//** func1 check **
-	int* res1 = Multiplication::RegularMultiplication(x, y, n, n);
-	cout << "Long multiplication : x * y = ";
-	printIntArr(res1, 2 * n);
-	//delete[] res1;
+	////** func1 check **
+	//int* res1 = Multiplication::RegularMultiplication(x, y, n, n);
+	//cout << "Long multiplication : x * y = ";
+	//printIntArr(res1, 2 * n);
+	////delete[] res1;
 
-	//** func2 check **
-	int* res2 = new int[n * 2]();
-	Multiplication::KaratsubaRecursive(x, y, n, res2);
-	cout << "\nKaratsuba(recursive) : x * y = ";
-	printIntArr(res2, 2 * n);
-	//delete[] res2;
+	////** func2 check **
+	//int* res2 = new int[n * 2]();
+	//Multiplication::KaratsubaRecursive(x, y, n, res2);
+	//cout << "\nKaratsuba(recursive) : x * y = ";
+	//printIntArr(res2, 2 * n);
+	////delete[] res2;
 
-	//** func3 check **
+	////** func3 check **
 	//int* res3 = new int[n * 2]();
-	//Multiplication::RegularMultiplication(x, y, n, res3);
+	//Multiplication::KaratsubaIterative(x, y, n, res3);
 	//cout << "\nKaratsuba(iterative) : x * y = ";
 	//printIntArr(res3, 2 * n);
+	////delete[] res3;
+
+	//cout << "\n-------------------------------------------" << endl;
+	//cout << cmpNum(res1, res3, n * 2) << endl;
+	//cout << "-------------------------------------------" << endl;
+
+	//delete[] res1;
+	//delete[] res2;
 	//delete[] res3;
-
-	cout << "\n-------------------------------------------" << endl;
-	cout << cmpNum(res1, res2, n * 2) << endl;
-	cout << "-------------------------------------------" << endl;
-
-	delete[] res1;
-	delete[] res2;
 	delete[] x;
 	delete[] y;
 

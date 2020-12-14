@@ -16,6 +16,21 @@ ItemType::ItemType(const ItemType& other) : line(other.line), x(other.x), y(othe
                                             prodOfSum(other.prodOfSum), prodOfSumSize(other.prodOfSumSize) {}
 
 
+void ItemType::delete_aPlusB() {
+	delete[] aPlusb;
+	aPlusb = nullptr;
+}
+
+void ItemType::delete_cPlusd() {
+	delete[] cPlusd;
+	cPlusd = nullptr;
+}
+
+void ItemType::delete_prodOfSum() {
+	delete[] prodOfSum;
+	prodOfSum = nullptr;
+}
+
 void ItemType::operator=(const ItemType& other){
     line = other.line;
     x = other.x;
