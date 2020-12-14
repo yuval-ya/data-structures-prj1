@@ -59,10 +59,12 @@ void Multiplication::KaratsubaRecursive(int* x, int* y, long int size, int* res)
 
 	// sub = (a+b)*(c+d) - (a*c)
 	int* sub = subtractor(prodOfSum, ac, prodOfSumSize, acSize, subSize);	// subSize = prodOfSumSize
-
+    //subtractorV2(prodOfSum, ac, prodOfSumSize, acSize);
+    
 	// middle = (a+b)*(c+d) - (a*c) - (b*d)
 	int* middle = subtractor(sub, bd, subSize, bdSize, middleSize);		// middleSize = prodOfSumSize
-
+    //subtractorV2(prodOfSum, bd, prodOfSumSize, bdSize);
+    
 	delete[] prodOfSum;
 	delete[] sub;
 
@@ -82,6 +84,7 @@ void Multiplication::KaratsubaRecursive(int* x, int* y, long int size, int* res)
 	}
 
 	delete[] middle;
+//    delete [] prodOfSum;
 	return;
 }
 

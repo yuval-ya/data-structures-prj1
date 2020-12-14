@@ -6,7 +6,7 @@
 using namespace std;
 
 
-void Multiplication::printIntArr(int * arr, int size) {
+void Multiplication::printIntArr(int * arr, long int size) {
 	int j = 0;
 	for (j = 0; (j < size - 1) && (arr[j] == 0); j++) 
 	{ // skip all leading zero's
@@ -84,3 +84,26 @@ int* Multiplication::subtractor(int* x, int* y, long int x_size, long int y_size
 	return res;
 }
 
+void Multiplication::subtractorV2(int* x, int* y, long int x_size, long int y_size)
+{    //Assuming the x > y
+    int sum, carry = 0;
+    long int x_idx, y_idx;
+
+    x_idx = x_size - 1;
+    y_idx = y_size - 1;
+
+    while (x_idx >= 0 && y_idx >= 0) {
+        sum = x[x_idx] - y[y_idx] + carry;
+        x[x_idx] = (10 + sum) % 10;
+        carry = sum < 0 ? -1 : 0;
+        x_idx--;
+        y_idx--;
+    }
+    
+    while (carry && x_idx >= 0) {
+        sum = x[x_idx] + carry;
+        x[x_idx] = (10 + sum) % 10;
+        carry = sum < 0 ? -1 : 0;
+        x_idx--;
+    }
+}

@@ -12,7 +12,8 @@ public:
 	
 	static int* adder(int* x, int* y, long int x_size, long int y_size, long int& resSize);
 	static int* subtractor(int* x, int* y, long int x_size, long int y_size, long int& resSize);
-	static void printIntArr(int * arr, int size);
+    static void subtractorV2(int* x, int* y, long int x_size, long int y_size);
+	static void printIntArr(int * arr,long int size);
 
 };
 

@@ -8,7 +8,7 @@ using namespace std;
 
 int* Multiplication::RegularMultiplication(int* x, int* y, long int x_size, long int y_size) {
 	int idx_x, idx_y, carry, sum;
-	int resSize = x_size + y_size;
+	long int resSize = x_size + y_size;
 	int* res = new int[resSize]();
 
 	for (int i = 0; i < resSize; i++)
@@ -16,12 +16,12 @@ int* Multiplication::RegularMultiplication(int* x, int* y, long int x_size, long
 
 	idx_x = idx_y = 0;
 
-	for (int i = x_size - 1; i >= 0; i--)
+	for (long int i = x_size - 1; i >= 0; i--)
 	{
 		carry = 0;
 		idx_y = 0;
 
-		for (int j = y_size - 1; j >= 0; j--)
+		for (long int j = y_size - 1; j >= 0; j--)
 		{
 			sum = 0;
 			sum = x[i] * y[j] + carry + res[idx_x + idx_y];
@@ -52,9 +52,9 @@ void Multiplication::RegularMultiplicationHelper(int* x, int* y, long int x_size
 	// Calculating total time taken by the program.
 	double time_taken = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
 	time_taken *= 1e-9;
-	ofstream myfile("Measure.txt", ios::app); // The name of the file
+	ofstream myfile("Measure.txt"); // The name of the file
 	myfile << endl;								////////////////////****************************** change to ios::trunc and del this line
-	myfile << "Time taken by function RegularMultiplication is : " << fixed << time_taken /*<< setprecision(9)*/;
+	myfile << "Time taken by function RegularMultiplication is : " << fixed << time_taken << setprecision(9);
 	myfile << " sec" << endl;
 	myfile.close();
 

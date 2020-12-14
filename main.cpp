@@ -6,8 +6,8 @@
 //  Copyright © 2020 Tamir Houri 205668627 & Yuval Yakovskind 316550524. All rights reserved.
 //
 
-#define _CRTDB_MAP_ALLOC
-#include <crtdbg.h>
+//#define _CRTDB_MAP_ALLOC
+//#include <crtdbg.h>
 
 #include "main.h"
 #include "Multiplication.h"
@@ -48,8 +48,8 @@ int main(void) {
 	cout << "\n------------" << endl;
 	cout << "Result = " << endl;
 
-	Multiplication::RegularMultiplicationHelper(x, y, n, n);
-	Multiplication::KaratsubaRecursiveHelper(x, y, n);
+//	Multiplication::RegularMultiplicationHelper(x, y, n, n);
+//	Multiplication::KaratsubaRecursiveHelper(x, y, n);
 
 	//** adder check **
 	//long int size = 0;
@@ -58,16 +58,16 @@ int main(void) {
 	//delete[] res;
 	
 	//** func1 check **
-	//int* res1 = Multiplication::RegularMultiplication(x, y, n, n);
-	//cout << "Long multiplication : x * y = ";
-	//printIntArr(res1, 2 * n);
+	int* res1 = Multiplication::RegularMultiplication(x, y, n, n);
+	cout << "Long multiplication : x * y = ";
+	printIntArr(res1, 2 * n);
 	//delete[] res1;
 
 	//** func2 check **
-	//int* res2 = new int[n * 2]();
-	//Multiplication::KaratsubaRecursive(x, y, n, res2);
-	//cout << "\nKaratsuba(recursive) : x * y = ";
-	//printIntArr(res2, 2 * n);
+	int* res2 = new int[n * 2]();
+	Multiplication::KaratsubaRecursive(x, y, n, res2);
+	cout << "\nKaratsuba(recursive) : x * y = ";
+	printIntArr(res2, 2 * n);
 	//delete[] res2;
 
 	//** func3 check **
@@ -77,17 +77,17 @@ int main(void) {
 	//printIntArr(res3, 2 * n);
 	//delete[] res3;
 
-	//cout << "\n-------------------------------------------" << endl;
-	//cout << cmpNum(res1, res2, n * 2) << endl;
-	//cout << "-------------------------------------------" << endl;
+	cout << "\n-------------------------------------------" << endl;
+	cout << cmpNum(res1, res2, n * 2) << endl;
+	cout << "-------------------------------------------" << endl;
 
-	//delete[] res1;
-	//delete[] res2;
+	delete[] res1;
+	delete[] res2;
 	delete[] x;
 	delete[] y;
 
-	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	_CrtDumpMemoryLeaks();
+//	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+//	_CrtDumpMemoryLeaks();
 	return 0;
 }
 
