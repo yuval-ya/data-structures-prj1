@@ -21,13 +21,16 @@ void Stack::MakeEmpty(){
     Node* temp;
     while(_top != nullptr){
         temp = _top;
-        _top = _top->getNext();
+        _top = _top->next;
         delete temp;
     }
 }
 
-void Stack::Push(ItemType item){
-    _top = new Node(item,_top);
+void Stack::Push(const ItemType& item){
+    Node* newNode = new Node();
+    newNode->data = item;
+    newNode->next = _top;
+    _top = newNode;
 }
 
 ItemType Stack::Pop(){
@@ -36,8 +39,8 @@ ItemType Stack::Pop(){
     }
     
     Node* temp = _top;
-    ItemType item = _top->getVal();
-    _top = _top->getNext();
+    ItemType item = _top->data;
+    _top = _top->next;
     delete temp;
     return item;
 }
@@ -46,8 +49,8 @@ bool Stack::IsEmpty(){
     return _top == nullptr;
 }
 
-ItemType Stack::Top() {
-    return _top->getVal();
+ItemType& Stack::Top() {
+    return _top->data;
 }
 
 }

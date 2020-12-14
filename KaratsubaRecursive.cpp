@@ -35,7 +35,7 @@ void Multiplication::KaratsubaRecursive(int* x, int* y, long int size, int* res)
 	KaratsubaRecursive(a, c, firstHalf, ac);	// return size = (size / 2) * 2
 	KaratsubaRecursive(b, d, secondHalf, bd);	// return size = (size - (size / 2)) * 2
 
-	long int aPlusbSize = 0, cPlusdSize = 0, prodOfSumSize = 0, subSize = 0, middleSize = 0;
+    long int aPlusbSize = 0, cPlusdSize = 0, prodOfSumSize = 0;
 
 	// (a+b)
 	int* aPlusb = adder(a, b, firstHalf, secondHalf, aPlusbSize);	// (size - (size / 2)) + 1
@@ -58,21 +58,21 @@ void Multiplication::KaratsubaRecursive(int* x, int* y, long int size, int* res)
 	delete[] cPlusd;
 
 	// sub = (a+b)*(c+d) - (a*c)
-	int* sub = subtractor(prodOfSum, ac, prodOfSumSize, acSize, subSize);	// subSize = prodOfSumSize
-    //subtractorV2(prodOfSum, ac, prodOfSumSize, acSize);
+	//int* sub = subtractor(prodOfSum, ac, prodOfSumSize, acSize, subSize);	// subSize = prodOfSumSize
+    subtractorV2(prodOfSum, ac, prodOfSumSize, acSize);
     
 	// middle = (a+b)*(c+d) - (a*c) - (b*d)
-	int* middle = subtractor(sub, bd, subSize, bdSize, middleSize);		// middleSize = prodOfSumSize
-    //subtractorV2(prodOfSum, bd, prodOfSumSize, bdSize);
+	//int* middle = subtractor(sub, bd, subSize, bdSize, middleSize);		// middleSize = prodOfSumSize
+    subtractorV2(prodOfSum, bd, prodOfSumSize, bdSize);
     
-	delete[] prodOfSum;
-	delete[] sub;
+//	delete[] prodOfSum;
+//	delete[] sub;
 
 	// (ac)*10^size + middle * 10^(size/2) + (bd)
 	int carry = 0, sum;
 	long int i, j;
-	for (i = size * 2 - (size + 1) / 2 - 1, j = middleSize - 1; j >= 0 && i >= 0; i--, j--) {
-		sum = res[i] + middle[j] + carry;
+	for (i = size * 2 - (size + 1) / 2 - 1, j = prodOfSumSize - 1; j >= 0 && i >= 0; i--, j--) {
+		sum = res[i] + prodOfSum[j] + carry;
 		res[i] = sum % 10;
 		carry = sum / 10;
 	}
@@ -83,8 +83,8 @@ void Multiplication::KaratsubaRecursive(int* x, int* y, long int size, int* res)
 		i--;
 	}
 
-	delete[] middle;
-//    delete [] prodOfSum;
+//	delete[] middle;
+    delete [] prodOfSum;
 	return;
 }
 

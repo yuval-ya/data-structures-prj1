@@ -7,19 +7,27 @@
 //
 
 #pragma once
-#include "Node.h"
+#include "ItemType.h"
 
 namespace stk {
+
+
 class Stack {
 private:
+    struct Node{
+        ItemType data;
+        Node* next;
+    };
     Node* _top;
 public:
     Stack();
     ~Stack();
     void MakeEmpty();
     bool IsEmpty();
-    void Push(ItemType item);
+    void Push(const ItemType& item);
     ItemType Pop();
-    ItemType Top();
+    ItemType& Top();
 };
+
+
 }
