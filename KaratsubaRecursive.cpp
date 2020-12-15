@@ -5,7 +5,6 @@
 #include <fstream>
 using namespace std;
 
-
 void Multiplication::KaratsubaRecursive(int* x, int* y, long int size, int* res)
 {	// x*y = (a*c)*10^n + (b*d) + ((a+b)*(c+d)-a*c-b*d)* 10^(n/2) 
 
@@ -43,17 +42,23 @@ void Multiplication::KaratsubaRecursive(int* x, int* y, long int size, int* res)
 	int* cPlusd = adder(c, d, firstHalf, secondHalf, cPlusdSize);		// (size - (size / 2)) + 1
 
 	// (a+b)*(c+d)
-	int* prodOfSum;
-	if (aPlusb[0] == 0 && cPlusd[0] == 0) {
-		prodOfSumSize = (aPlusbSize - 1) * 2;	// aPlusbSize == cPlusdSize
-		prodOfSum = new int[prodOfSumSize]();
-		KaratsubaRecursive(aPlusb + 1, cPlusd + 1, aPlusbSize - 1, prodOfSum);	// prodOfSumSize = (size - (size / 2)) * 2 
-	}
-	else {
-		prodOfSumSize = aPlusbSize * 2;
-		prodOfSum = new int[prodOfSumSize]();
-		KaratsubaRecursive(aPlusb, cPlusd, aPlusbSize, prodOfSum);	// prodOfSumSize = (size - (size / 2)) * 2 + 2
-	}
+	int* prodOfSum, leadingZeros;
+	for (leadingZeros = 0; aPlusb[leadingZeros] == 0 && cPlusd[leadingZeros] == 0 && leadingZeros < aPlusbSize - 1; leadingZeros++) {
+	}	// find all leading zeros
+	prodOfSumSize = (aPlusbSize - leadingZeros) * 2;	// aPlusbSize == cPlusdSize
+	prodOfSum = new int[prodOfSumSize]();
+	KaratsubaRecursive(aPlusb + leadingZeros, cPlusd + leadingZeros, aPlusbSize - leadingZeros, prodOfSum);	// prodOfSumSize = (size - (size / 2)) * 2 
+
+	//if (aPlusb[0] == 0 && cPlusd[0] == 0) {
+	//	prodOfSumSize = (aPlusbSize - 1) * 2;	// aPlusbSize == cPlusdSize
+	//	prodOfSum = new int[prodOfSumSize]();
+	//	KaratsubaRecursive(aPlusb + 1, cPlusd + 1, aPlusbSize - 1, prodOfSum);	// prodOfSumSize = (size - (size / 2)) * 2 
+	//}
+	//else {
+	//	prodOfSumSize = aPlusbSize * 2;
+	//	prodOfSum = new int[prodOfSumSize]();
+	//	KaratsubaRecursive(aPlusb, cPlusd, aPlusbSize, prodOfSum);	// prodOfSumSize = (size - (size / 2)) * 2 + 2
+	//}
 	delete[] aPlusb;
 	delete[] cPlusd;
 
@@ -105,3 +110,6 @@ void Multiplication::KaratsubaRecursiveHelper(int* x, int* y, long int size)
 	printIntArr(res, 2 * size);
 	delete[] res;
 }
+
+
+

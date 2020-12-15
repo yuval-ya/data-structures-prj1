@@ -59,6 +59,7 @@ void Multiplication::KaratsubaIterative(int* x, int* y, long int size, int* res)
 				aPlusb = aPlusb + 1;
 				cPlusd = cPlusd + 1;
             }
+
             long int prodOfSumSize = aPlusbSize * 2;
 			int *prodOfSum = new int[prodOfSumSize]();
 			curr.set_prodOfSum(prodOfSum);
@@ -119,3 +120,5 @@ void Multiplication::KaratsubaIterativeHelper(int* x, int* y, long int size) {
 	printIntArr(res, 2 * size);
 	delete[] res;
 }
+
+

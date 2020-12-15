@@ -42,15 +42,16 @@ int main(void) {
 
 	cout << "------------" << endl;
 	cout << "Number 1 = ";
-	printIntArr(x, n);
+	Multiplication::printIntArr(x, n);
 	cout << "\nNumber 2 = ";
-	printIntArr(y, n);
+	Multiplication::printIntArr(y, n);
 	cout << "\n------------" << endl;
 	cout << "Result = " << endl;
 
 	Multiplication::RegularMultiplicationHelper(x, y, n, n);
 	Multiplication::KaratsubaRecursiveHelper(x, y, n);
 	Multiplication::KaratsubaIterativeHelper(x, y, n);
+
 
 	//** adder check **
 	//long int size = 0;
@@ -79,7 +80,7 @@ int main(void) {
 	////delete[] res3;
 
 	//cout << "\n-------------------------------------------" << endl;
-	//cout << cmpNum(res1, res3, n * 2) << endl;
+	//cout << cmpNum(res1, res2, n * 2) << endl;
 	//cout << "-------------------------------------------" << endl;
 
 	//delete[] res1;

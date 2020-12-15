@@ -16,7 +16,8 @@ public:
 	// Karatsuba Algorithm (Iterative)
 	static void KaratsubaIterativeHelper(int* x, int* y, long int size);
 	static void KaratsubaIterative(int* x, int* y, long int size, int* res);
-	
+
+
 	// Utilities
 	static int* adder(int* x, int* y, long int x_size, long int y_size, long int& resSize);
     static void subtractor(int* x, int* y, long int x_size, long int y_size);
