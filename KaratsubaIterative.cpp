@@ -1,8 +1,8 @@
-#include "Multiplication.h"
-
 #include <iostream>
+#include <iomanip>
 #include <chrono>
 #include <fstream>
+#include "Multiplication.h"
 #include "Stack.h"
 using namespace std;
 using namespace stk;
@@ -49,13 +49,13 @@ void Multiplication::KaratsubaIterative(int* x, int* y, long int size, int* res)
 
             // (a+b)
             int* aPlusb = adder(curr.getX(), curr.getX() + firstHalf, firstHalf, secondHalf, aPlusbSize);
-            curr.set_aPlusB(aPlusb); // (size - (size / 2)) + 1
+            curr.set_aPlusB(aPlusb);
             // (c+d)
             int* cPlusd = adder(curr.getY(), curr.getY() + firstHalf, firstHalf, secondHalf, cPlusdSize);
-            curr.set_cPlusd(cPlusd); // (size - (size / 2)) + 1
+            curr.set_cPlusd(cPlusd);
 
-            if (aPlusb[0] == 0 && cPlusd[0] == 0) {
-                aPlusbSize--;				// aPlusbSize == cPlusdSize
+            if (aPlusb[0] == 0 && cPlusd[0] == 0) { // removes leading zero
+                aPlusbSize--;		                // aPlusbSize == cPlusdSize
 				aPlusb = aPlusb + 1;
 				cPlusd = cPlusd + 1;
             }
@@ -76,22 +76,14 @@ void Multiplication::KaratsubaIterative(int* x, int* y, long int size, int* res)
 			int* prodOfSum = curr.get_prodOfSum();
 			int* currRes = curr.get_res();
 			long int prodOfSumSize = curr.get_prodOfSumSize();
+            
+            //(a+b)*(c+d) - (a*c)
 			subtractor(prodOfSum, currRes, prodOfSumSize, firstHalf * 2);
+            //(a+b)*(c+d) - (a*c) - (b*d)
 			subtractor(prodOfSum, currRes + firstHalf * 2, prodOfSumSize, secondHalf * 2);
+            // (ac)*10^size + middle * 10^(size/2) + (bd)
+            sumMiddlePart(currRes, prodOfSum, curr.getSize(), prodOfSumSize);
 
-			int carry = 0, sum;
-			long int size = curr.getSize(), i, j;
-			for (i = size * 2 - (size + 1) / 2 - 1, j = prodOfSumSize - 1; j >= 0 && i >= 0; i--, j--) {
-				sum = currRes[i] + prodOfSum[j] + carry;
-				currRes[i] = sum % 10;
-				carry = sum / 10;
-			}
-			while (carry && i >= 0) {
-				sum = currRes[i] + carry;
-				currRes[i] = sum % 10;
-				carry = sum / 10;
-				i--;
-			}
 			curr.delete_prodOfSum();
 			returnFromRecursion = 1;
 		}
@@ -105,17 +97,15 @@ void Multiplication::KaratsubaIterativeHelper(int* x, int* y, long int size) {
 	auto start = chrono::high_resolution_clock::now();
 	// unsync the I/O of C and C++.
 	ios_base::sync_with_stdio(false);
-	KaratsubaIterative(x, y, size, res);		// Here you put the name of the function you wish to measure
+	KaratsubaIterative(x, y, size, res);
 	auto end = chrono::high_resolution_clock::now();
 	// Calculating total time taken by the program.
 	double time_taken = chrono::duration_cast<chrono::nanoseconds>(end - start).count();
 	time_taken *= 1e-9;
 	ofstream myfile("Measure.txt", ios::app); // The name of the file
-	myfile << "Time taken by function KaratsubaIterative is : " << fixed << time_taken /*<< setprecision(9)*/;
-	myfile << " sec" << endl;
-	myfile << "\n===================================================================\n";
+	myfile << "Time taken by function KaratsubaIterative is : " << fixed << time_taken << setprecision(9);
+	myfile << " sec" << endl << endl;
 	myfile.close();
-
 	cout << "\nKaratsuba(Iterative) : x * y = ";
 	printIntArr(res, 2 * size);
 	delete[] res;

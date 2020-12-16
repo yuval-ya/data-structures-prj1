@@ -18,7 +18,8 @@ void Multiplication::printIntArr(int * arr, long int size) {
 
 int* Multiplication::adder(int* x, int* y, long int x_size, long int y_size, long int& resSize)
 {
-	int *res, sum, carry, x_idx, y_idx, write;
+    int *res, sum, carry;
+    long int x_idx, y_idx, write;
 	resSize = ((x_size > y_size) ? x_size : y_size) + 1; // max size + 1
 	res = new int[resSize]();
 
@@ -56,9 +57,8 @@ int* Multiplication::adder(int* x, int* y, long int x_size, long int y_size, lon
 }
 
 
-
 void Multiplication::subtractor(int* x, int* y, long int x_size, long int y_size)
-{    //Assuming the x > y
+{    //Assuming that  x > y
     int sum, carry = 0;
     long int x_idx, y_idx;
 
@@ -78,5 +78,23 @@ void Multiplication::subtractor(int* x, int* y, long int x_size, long int y_size
         x[x_idx] = (10 + sum) % 10;
         carry = sum < 0 ? -1 : 0;
         x_idx--;
+    }
+}
+
+
+void Multiplication::sumMiddlePart(int* res, int* prodOfSum, long int size, long int prodOfSumSize)
+{   // Adds profOfSum to res from the relevant part
+    int carry = 0, sum;
+    long int i, j;
+    for (i = size * 2 - (size + 1) / 2 - 1, j = prodOfSumSize - 1; j >= 0 && i >= 0; i--, j--) {
+        sum = res[i] + prodOfSum[j] + carry;
+        res[i] = sum % 10;
+        carry = sum / 10;
+    }
+    while (carry && i >= 0) {
+        sum = res[i] + carry;
+        res[i] = sum % 10;
+        carry = sum / 10;
+        i--;
     }
 }

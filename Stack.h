@@ -13,6 +13,9 @@ namespace stk {
 
 
 class Stack {
+    
+    // Stack of ItemTypes
+    
 private:
     struct Node{
         ItemType data;
