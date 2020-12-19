@@ -16,19 +16,19 @@ int main(void) {
 
 	long int n = Input::getSize(input_flag);
 	if (input_flag < 0) {
-		cout << "wrong output";
+		cout << "wrong input";
 		return 0;
 	}
 
 	int* x = Input::getNumArr(n, input_flag);
 	if (input_flag < 0) {
-		cout << "wrong output";
+		cout << "wrong input";
 		return 0;
 	}
 
 	int* y = Input::getNumArr(n, input_flag);
 	if (input_flag < 0) {
-		cout << "wrong output";
+		cout << "wrong input";
 		delete[] x;
 		return 0;
 	}
